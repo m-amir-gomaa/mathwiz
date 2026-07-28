@@ -15,7 +15,7 @@ function M.render(bufnr, fractions)
             extmarks.set_extmark(bufnr, frac.start_row, frac.start_col, {
                 end_row = frac.end_row,
                 end_col = frac.end_col,
-                conceal = true,
+                conceal = "",
                 virt_text = {{"", "MathVizHidden"}},
                 virt_text_pos = "inline",
             })

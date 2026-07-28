@@ -23,7 +23,7 @@ function M.render(bufnr, piecewise_blocks)
                         virt_text = {{ sym, "MathVizPiecewise" }},
                         virt_text_pos = "inline",
                         -- Hide the dictionary bracket if it's the first/last row
-                        conceal = (row == block.start_row or row == block.end_row)
+                        conceal = (row == block.start_row or row == block.end_row) and "" or nil
                     })
                 end
             end

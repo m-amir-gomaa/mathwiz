@@ -27,13 +27,13 @@ function M.render(bufnr, matrices)
             -- Render outer brackets (hide them)
             extmarks.set_extmark(bufnr, mat.start_row, mat.start_col, {
                 end_col = mat.start_col + 1,
-                conceal = true,
+                conceal = "",
                 virt_text = {{"", "MathVizHidden"}},
                 virt_text_pos = "inline",
             })
             extmarks.set_extmark(bufnr, mat.end_row, mat.end_col - 1, {
                 end_col = mat.end_col,
-                conceal = true,
+                conceal = "",
                 virt_text = {{"", "MathVizHidden"}},
                 virt_text_pos = "inline",
             })
