@@ -103,6 +103,7 @@ function M.render(bufnr, matrices)
                     })
                 end
             end
+            ::continue_matrix::
         end
     end
 end
