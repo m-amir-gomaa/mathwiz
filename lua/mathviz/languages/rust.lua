@@ -4,6 +4,15 @@ local matrix_query_string = [[
 (array_expression
   (array_expression) @row
 ) @matrix
+
+(macro_invocation
+  macro: (identifier) @mac (#match? @mac "^(arr1|arr2|arr3)$")
+  (token_tree
+    (array_expression
+      (array_expression) @row
+    ) @matrix
+  )
+)
 ]]
 
 local function get_node_range(node)
