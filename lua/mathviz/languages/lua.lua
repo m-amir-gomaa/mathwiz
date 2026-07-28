@@ -110,7 +110,7 @@ function M.get_symbols(bufnr, root)
                     replacement = symbol_map[text]
                 })
             else
-                local base, sub = text:match("^([a-zA-Z]+)_([a-zA-Z0-9]+)$")
+                local base, sub = text:match("^([a-zA-Z]+)_([a-zA-Z0-9]*)$")
                 if base and sub then
                     local sub_repl = ""
                     local valid = true

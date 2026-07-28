@@ -6,12 +6,12 @@ local M = {}
 
 -- symbols
 local brackets = {
-    top_left = "⎡",
-    top_right = "⎤",
-    mid_left = "⎢",
-    mid_right = "⎥",
-    bot_left = "⎣",
-    bot_right = "⎦",
+    top_left = "┌",
+    top_right = "┐",
+    mid_left = "│",
+    mid_right = "│",
+    bot_left = "└",
+    bot_right = "┘",
     single_left = "[",
     single_right = "]",
 }
@@ -24,6 +24,13 @@ function M.render(bufnr, matrices)
         if config.options.cursor.reveal_on_hover and extmarks.is_cursor_in_range(bufnr, mat.start_row, mat.start_col, mat.end_row, mat.end_col) then
             -- do nothing for this matrix
         else
+            local num_rows = #mat.rows
+            
+            -- Skip rendering if it's a flattened multi-row matrix on a single line
+            if num_rows > 1 and mat.start_row == mat.end_row then
+                goto continue_matrix
+            end
+
             -- Render outer brackets (hide them)
             extmarks.set_extmark(bufnr, mat.start_row, mat.start_col, {
                 end_col = mat.start_col + 1,
@@ -39,7 +46,6 @@ function M.render(bufnr, matrices)
             })
 
             -- Render inner rows
-            local num_rows = #mat.rows
             for i, row in ipairs(mat.rows) do
                 local left_sym, right_sym
                 

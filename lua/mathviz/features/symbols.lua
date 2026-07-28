@@ -51,6 +51,10 @@ M.symbol_map = {
     -- Keyword token for Python "in", "lambda"
     ["in"] = "∈",
     ["lambda"] = "λ",
+    ["lambda_"] = "λ",
+    ["alpha_"] = "α",
+    ["beta_"] = "β",
+    ["gamma_"] = "γ",
 
     -- Arithmetic operators
     ["*"] = "×",
