@@ -1,4 +1,7 @@
 local M = {}
+local symbols_module = require("mathviz.features.symbols")
+local symbol_map = symbols_module.symbol_map
+local subscript_map = symbols_module.subscript_map
 
 local matrix_query_string = [[
 (table_constructor
@@ -78,34 +81,9 @@ local symbol_query_string = [[
 ">=" @op_geq
 ]]
 
-local symbol_map = {
-    alpha = "α", beta = "β", gamma = "γ", delta = "δ",
-    theta = "θ", lambda = "λ", mu = "μ", sigma = "σ",
-    phi = "φ", omega = "ω",
 
-    -- Sets
-    ["in"] = "∈", subset = "⊂", union = "∪", intersection = "∩",
-    -- Logic
-    ["and"] = "∧", ["or"] = "∨", ["not"] = "¬",
-    -- Calculus & General
-    infinity = "∞", sum = "∑", integral = "∫", sqrt = "√", nabla = "∇", approx = "≈"
 
-    Alpha = "Α", Beta = "Β", Gamma = "Γ", Delta = "Δ",
-    Theta = "Θ", Lambda = "Λ", Mu = "Μ", Sigma = "Σ",
-    Phi = "Φ", Omega = "Ω",
-    ["in"] = "∈", subset = "⊂", union = "∪", intersection = "∩",
-    ["and"] = "∧", ["or"] = "∨", ["not"] = "¬",
-    infinity = "∞", sum = "∑", integral = "∫", df_dx = "∂f/∂x",
-    sqrt = "√", nabla = "∇", approx = "≈"
-}
 
-local subscript_map = {
-    ["0"] = "₀", ["1"] = "₁", ["2"] = "₂", ["3"] = "₃", ["4"] = "₄",
-    ["5"] = "₅", ["6"] = "₆", ["7"] = "₇", ["8"] = "₈", ["9"] = "₉",
-    a = "ₐ", e = "ₑ", h = "ₕ", i = "ᵢ", j = "ⱼ", k = "ₖ", l = "ₗ",
-    m = "ₘ", n = "ₙ", o = "ₒ", p = "ₚ", r = "ᵣ", s = "ₛ", t = "ₜ",
-    u = "ᵤ", v = "ᵥ", x = "ₓ"
-}
 
 function M.get_symbols(bufnr, root)
     local ok, query = pcall(vim.treesitter.query.parse, "lua", symbol_query_string)
