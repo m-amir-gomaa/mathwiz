@@ -4,6 +4,16 @@ local matrix_query_string = [[
 (list
   (list) @row
 ) @matrix
+
+(call
+  function: [
+    (attribute object: (identifier) @lib attribute: (identifier) @method)
+    (identifier) @method
+  ]
+  arguments: (argument_list
+    (list (list) @row) @matrix
+  )
+)
 ]]
 
 local function get_node_range(node)
