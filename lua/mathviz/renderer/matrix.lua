@@ -12,8 +12,8 @@ local brackets = {
     mid_right = "⎥",
     bot_left = "⎣",
     bot_right = "⎦",
-    single_left = "⎡",
-    single_right = "⎤",
+    single_left = "[",
+    single_right = "]",
 }
 
 function M.render(bufnr, matrices)

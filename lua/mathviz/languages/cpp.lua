@@ -76,6 +76,13 @@ end
 
 local symbol_query_string = [[
 (identifier) @symbol
+"&&" @symbol
+"||" @symbol
+"!" @symbol
+"*" @symbol
+"and" @symbol
+"or" @symbol
+"not" @symbol
 "!=" @op_neq
 "<=" @op_leq
 ">=" @op_geq

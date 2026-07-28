@@ -5,7 +5,7 @@ local subscript_map = symbols_module.subscript_map
 
 local matrix_query_string = [[
 (matrix_expression
-  (row) @row
+  (matrix_row) @row
 ) @matrix
 ]]
 
@@ -76,9 +76,7 @@ end
 
 local symbol_query_string = [[
 (identifier) @symbol
-"!=" @op_neq
-"<=" @op_leq
-">=" @op_geq
+(operator) @symbol
 "->" @op_arrow
 ]]
 
