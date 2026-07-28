@@ -1,98 +1,107 @@
-# MathViz.nvim
+# MathWiz.nvim 🧙‍♂️✨
 
-`mathviz.nvim` is a Neovim plugin that adds an optional **visual mathematical and programming notation layer** on top of ordinary source code.
+MathWiz is a next-generation Neovim plugin that transforms your source code into beautiful, readable mathematics using Unicode characters and Neovim's blazing-fast `extmarks`. 
 
-The primary motivation is to reduce the cognitive overhead of translating between programming syntax and mathematical notation while reasoning about mathematical code.
+The core philosophy: **Your code remains pure ASCII/UTF-8 underneath, but your editor renders it as beautiful math.** Write `alpha_1 = np.array([[1], [2]])`, and read it as `α₁ = [ 1 ]...`. When your cursor enters the math, it instantly reverts to code for seamless editing!
 
-## Concept
+## 🌟 Features
 
-The core principle of this plugin is:
+- **Beautiful Matrices**: Visually formats multi-dimensional arrays, matrices, and vectors into gorgeous mathematical matrix notations using robust Unicode box-drawing structures.
+- **Greek & Mathematical Symbols**: Instantly maps identifiers like `alpha`, `beta`, `integral`, `sum` into their Unicode equivalents (`α`, `β`, `∫`, `∑`).
+- **Subscripts Support**: Automatically maps trailing variables like `x_1` to `x₁`, `theta_i` to `θᵢ`, and supports explicit trailing underscores (`lambda_` → `λ`).
+- **Logical & Relational Operators**: Elevates syntax operators. `!=` becomes `≠`, `<= ` becomes `≤`, `&&` becomes `∧`, and `||` becomes `∨`.
+- **Zero Hacks. 100% Neovim Standard**: Completely powered by standard Neovim `vim.treesitter` APIs. No buggy regexes, no background binary processes, and no compilation steps. It works out of the box in Nix, MacOS, and Linux identically.
 
-> **The source code remains ordinary, valid, executable code. The plugin creates a separate visual mathematical notation layer on top of it.**
+## 🚀 Installation
 
-For example, when writing Python:
-
-```python
-A = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9],
-]
-```
-
-MathViz visually renders it as a matrix:
-
-```text
-A = ⎡ 1  2  3 ⎤
-    ⎢ 4  5  6 ⎥
-    ⎣ 7  8  9 ⎦
-```
-
-while the actual buffer remains valid, ordinary Python source.
-
-## Features
-
-- **Matrix Visualization**: Turns nested lists and arrays into visually aligned mathematical matrices.
-- **Math Mode & Symbol Prettification**: Renders `alpha` as `α`, `!=` as `≠`, `<= ` as `≤`, and more.
-- **Cursor-Aware Reveal**: The mathematical overlay automatically disappears when your cursor enters the transformed region, allowing you to edit the original source naturally.
-- **Multi-Language Support**: Works out of the box with Python, C, C++, Rust, Go, JavaScript, TypeScript, Lua, and Julia (via Treesitter).
-- **Source Preservation**: Your files on disk are never altered.
-
-## Installation
-
-Using [lazy.nvim](https://github.com/folke/lazy.nvim):
+Install using [lazy.nvim](https://github.com/folke/lazy.nvim):
 
 ```lua
 {
-    "username/mathviz.nvim",
-    dependencies = {
-        "nvim-treesitter/nvim-treesitter",
-    },
+    "m-amir-gomaa/mathwiz",
     config = function()
         require("mathviz").setup({
-            enabled = true,
-            -- Your configuration here
+            -- Optional configuration here
         })
-    end
+    end,
 }
 ```
 
-## Configuration
+*Note: Requires Neovim 0.9+ and `nvim-treesitter` to be installed and configured.*
 
-MathViz is highly configurable. You can toggle specific features and language support.
+## 📖 Complete Language Registry
+
+MathWiz supports an extensive set of languages via Treesitter. Here is the complete reference of what you can type to produce symbols in each language.
+
+### 1. Variables & Greek Symbols (All Languages)
+Type any of the following variables in your code. MathWiz intercepts the identifier and displays the mathematical glyph:
+- **Greek Letters**: `alpha` (α), `beta` (β), `gamma` (γ), `delta` (δ), `epsilon` (ε), `zeta` (ζ), `eta` (η), `theta` (θ), `iota` (ι), `kappa` (κ), `lambda` (λ), `mu` (μ), `nu` (ν), `xi` (ξ), `omicron` (ο), `pi` (π), `rho` (ρ), `sigma` (σ), `tau` (τ), `upsilon` (υ), `phi` (φ), `chi` (χ), `psi` (ψ), `omega` (ω).
+- **Capital Greek**: Type the uppercase variable, e.g., `Gamma` (Γ), `Delta` (Δ), `Theta` (Θ), `Lambda` (Λ), `Xi` (Ξ), `Pi` (Π), `Sigma` (Σ), `Upsilon` (Υ), `Phi` (Φ), `Psi` (Ψ), `Omega` (Ω).
+- **Math/Calculus**: `infinity` (∞), `integral` (∫), `sum` (∑), `sqrt` (√), `nabla` (∇), `approx` (≈).
+- **Set Theory**: `in` (∈), `subset` (⊂), `union` (∪), `intersection` (∩).
+
+### 2. Subscripts (All Languages)
+If you append an underscore and alphanumeric characters to *any variable* (even non-Greek ones), MathWiz turns them into subscripts.
+- `x_1` → `x₁`
+- `theta_i` → `θᵢ`
+- `W_out` → `Wₒᵤₜ`
+- `lambda_` → `λ` (Trailing underscore is gracefully dropped. Great for Python's `lambda_` variable conventions!)
+
+### 3. Operators (Language Specific)
+MathWiz cleverly hooks into the Treesitter AST to intercept language-specific operators without breaking string literals or comments.
+
+| Operator Meaning | Code Typed | Rendered As | Supported Languages |
+| :--- | :--- | :--- | :--- |
+| **Not Equal** | `!=` (or `~=` in Lua) | `≠` | C, C++, Rust, Go, Python, JS, TS, Lua, Julia |
+| **Less/Eq** | `<=` | `≤` | C, C++, Rust, Go, Python, JS, TS, Lua, Julia |
+| **Greater/Eq** | `>=` | `≥` | C, C++, Rust, Go, Python, JS, TS, Lua, Julia |
+| **Logical AND** | `&&` (or `and` in Python/Lua) | `∧` | C, C++, Rust, Go, Python, JS, TS, Lua, Julia |
+| **Logical OR** | `||` (or `or` in Python/Lua) | `∨` | C, C++, Rust, Go, Python, JS, TS, Lua, Julia |
+| **Logical NOT** | `!` (or `not` in Python/Lua) | `¬` | C, C++, Rust, Go, Python, JS, TS, Lua, Julia |
+| **Multiply** | `*` | `×` | C, C++, Rust, Go, Python, JS, TS, Lua, Julia |
+| **Arrow (Func)** | `->` | `→` | C, C++, Rust, Go, Python, Julia |
+
+### 4. Matrices & Vectors
+MathWiz parses multidimensional array literals and renders them gracefully. 
+- **Row Vectors** (e.g. `[[1, 2, 3]]`) are cleanly rendered with standard square brackets: `[ 1 2 3 ]`
+- **Column & Multi-Row Matrices** (e.g. nested lists formatted across multiple lines) are given robust vertical Unicode brackets:
+```python
+# What you type:
+B = np.array([
+    [1, 0, 0],
+    [0, 1, 0],
+    [0, 0, 1]
+])
+
+# What MathWiz renders:
+B = np.array(
+    ┌ 1  0  0 ┐
+    │ 0  1  0 │
+    └ 0  0  1 ┘
+)
+```
+*(Note: Flattened matrices typed explicitly on a single line like `[[1], [2]]` are intentionally skipped by the matrix renderer to prevent horizontal box-bracket layout collisions.)*
+
+## ⚙️ Configuration
+
+Default configuration options (passed into `require("mathviz").setup(...)`):
 
 ```lua
-require("mathviz").setup({
-    enabled = true,
-    math_mode = {
-        enabled_by_default = true,
+{
+    highlight_groups = {
+        symbol = "MathVizSymbol",   -- Highlight group for math symbols
+        bracket = "MathVizBracket", -- Highlight group for matrix brackets
     },
-    features = {
-        matrices = true,
-        vectors = true,
-        symbols = true,
-    },
-    languages = {
-        python = { enabled = true },
-        c = { enabled = true },
-        -- ...
-    },
-    cursor = {
-        reveal_on_hover = true,
-    },
-})
+    options = {
+        cursor = {
+            reveal_on_hover = true, -- Reveals the underlying raw code when your cursor enters the math symbol/matrix!
+        }
+    }
+}
 ```
 
-## Commands
+## 🤝 Contributing
 
-- `:MathVizEnable` - Enable MathViz in the current session
-- `:MathVizDisable` - Disable MathViz and clear all overlays
-- `:MathVizToggle` - Toggle MathViz state
+This plugin embraces reproducibility and standards. If your language is missing, simply duplicate one of the query files in `lua/mathviz/languages/` and add your Treesitter AST captures for `@matrix`, `@row`, and `@symbol`.
 
-## Contributing
-
-Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to add support for new languages or extend the Treesitter queries.
-
-## License
-
-MIT License. See [LICENSE](LICENSE) for more details.
+Built with ✨ and Neovim Extmarks.
