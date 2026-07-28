@@ -1,0 +1,9 @@
+:MathVizDisable	mathviz.txt	/*:MathVizDisable*
+:MathVizEnable	mathviz.txt	/*:MathVizEnable*
+:MathVizMathMode	mathviz.txt	/*:MathVizMathMode*
+:MathVizToggle	mathviz.txt	/*:MathVizToggle*
+mathviz-commands	mathviz.txt	/*mathviz-commands*
+mathviz-configuration	mathviz.txt	/*mathviz-configuration*
+mathviz-contents	mathviz.txt	/*mathviz-contents*
+mathviz-introduction	mathviz.txt	/*mathviz-introduction*
+mathviz.txt	mathviz.txt	/*mathviz.txt*
