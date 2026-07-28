@@ -1,0 +1,15 @@
+--- lua/mathviz/init.lua
++++ lua/mathviz/init.lua
+@@ -10,6 +10,12 @@
+ local M = {}
+ 
+ local function update_buffer(bufnr)
++    if not vim.api.nvim_buf_is_valid(bufnr) then return end
++    local buftype = vim.bo[bufnr].buftype
++    if buftype ~= "" and buftype ~= "acwrite" then
++        return
++    end
++
+     extmarks.clear(bufnr)
+     
+     local results = parser.parse_buffer(bufnr)
