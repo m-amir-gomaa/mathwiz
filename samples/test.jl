@@ -4,19 +4,21 @@ function test_matrices()
     A = [
         1 2 3;
         4 5 6;
-        7 8 9
     ]
 end
 
 function test_symbols()
     alpha = 1
     beta = 2
+    subset = 1
+    union = 2
+    infinity = 3
+    integral = 4
+    x_1 = 5
+    x_i = 6
+    sum = 8
     
-    if alpha != beta
+    if alpha != beta && alpha <= 10 || beta >= 2
         println("neq")
-    end
-    if alpha <= 10
-    end
-    if beta >= 2
     end
 end
