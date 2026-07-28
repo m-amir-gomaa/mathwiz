@@ -87,6 +87,12 @@ end
 
 local symbol_query_string = [[
 (identifier) @symbol
+"lambda" @symbol
+"*" @symbol
+"and" @symbol
+"or" @symbol
+"not" @symbol
+"in" @symbol
 "!=" @op_neq
 "<=" @op_leq
 ">=" @op_geq

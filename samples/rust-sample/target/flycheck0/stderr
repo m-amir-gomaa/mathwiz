@@ -1,5 +1,5 @@
-   0.036519838s  INFO prepare_target{force=false package_id=mathwiz-rust-sample v0.1.0 (/home/qwerty/mathwiz.nvim/samples/rust-sample) target="mathwiz-rust-sample"}: cargo::core::compiler::fingerprint: fingerprint error for mathwiz-rust-sample v0.1.0 (/home/qwerty/mathwiz.nvim/samples/rust-sample)/Check { test: false }/TargetInner { name: "mathwiz-rust-sample", doc: true, ..: with_path("/home/qwerty/mathwiz.nvim/samples/rust-sample/src/main.rs", Edition2021) }
-   0.036543495s  INFO prepare_target{force=false package_id=mathwiz-rust-sample v0.1.0 (/home/qwerty/mathwiz.nvim/samples/rust-sample) target="mathwiz-rust-sample"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/qwerty/mathwiz.nvim/samples/rust-sample/target/debug/.fingerprint/mathwiz-rust-sample-ee48c17cd3b9f29c/bin-mathwiz-rust-sample`
+   0.038532514s  INFO prepare_target{force=false package_id=mathwiz-rust-sample v0.1.0 (/home/qwerty/mathwiz.nvim/samples/rust-sample) target="mathwiz-rust-sample"}: cargo::core::compiler::fingerprint: fingerprint error for mathwiz-rust-sample v0.1.0 (/home/qwerty/mathwiz.nvim/samples/rust-sample)/Check { test: false }/TargetInner { name: "mathwiz-rust-sample", doc: true, ..: with_path("/home/qwerty/mathwiz.nvim/samples/rust-sample/src/main.rs", Edition2021) }
+   0.038554134s  INFO prepare_target{force=false package_id=mathwiz-rust-sample v0.1.0 (/home/qwerty/mathwiz.nvim/samples/rust-sample) target="mathwiz-rust-sample"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/qwerty/mathwiz.nvim/samples/rust-sample/target/debug/.fingerprint/mathwiz-rust-sample-ee48c17cd3b9f29c/bin-mathwiz-rust-sample`
 
 Caused by:
     No such file or directory (os error 2)
@@ -41,8 +41,8 @@ Stack backtrace:
   24: __libc_start_call_main
   25: __libc_start_main_alias_2
   26: <unknown>
-   0.042213619s  INFO prepare_target{force=false package_id=mathwiz-rust-sample v0.1.0 (/home/qwerty/mathwiz.nvim/samples/rust-sample) target="mathwiz-rust-sample"}: cargo::core::compiler::fingerprint: fingerprint error for mathwiz-rust-sample v0.1.0 (/home/qwerty/mathwiz.nvim/samples/rust-sample)/Check { test: true }/TargetInner { name: "mathwiz-rust-sample", doc: true, ..: with_path("/home/qwerty/mathwiz.nvim/samples/rust-sample/src/main.rs", Edition2021) }
-   0.042223764s  INFO prepare_target{force=false package_id=mathwiz-rust-sample v0.1.0 (/home/qwerty/mathwiz.nvim/samples/rust-sample) target="mathwiz-rust-sample"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/qwerty/mathwiz.nvim/samples/rust-sample/target/debug/.fingerprint/mathwiz-rust-sample-94bc9b6b08cd3849/test-bin-mathwiz-rust-sample`
+   0.044591184s  INFO prepare_target{force=false package_id=mathwiz-rust-sample v0.1.0 (/home/qwerty/mathwiz.nvim/samples/rust-sample) target="mathwiz-rust-sample"}: cargo::core::compiler::fingerprint: fingerprint error for mathwiz-rust-sample v0.1.0 (/home/qwerty/mathwiz.nvim/samples/rust-sample)/Check { test: true }/TargetInner { name: "mathwiz-rust-sample", doc: true, ..: with_path("/home/qwerty/mathwiz.nvim/samples/rust-sample/src/main.rs", Edition2021) }
+   0.044606693s  INFO prepare_target{force=false package_id=mathwiz-rust-sample v0.1.0 (/home/qwerty/mathwiz.nvim/samples/rust-sample) target="mathwiz-rust-sample"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/qwerty/mathwiz.nvim/samples/rust-sample/target/debug/.fingerprint/mathwiz-rust-sample-94bc9b6b08cd3849/test-bin-mathwiz-rust-sample`
 
 Caused by:
     No such file or directory (os error 2)

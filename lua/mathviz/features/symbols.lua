@@ -44,7 +44,15 @@ M.symbol_map = {
     E = "𝔼", expected_value = "𝔼", Var = "𝕍", P = "ℙ", prob = "ℙ",
     
     -- General
-    sqrt = "√"
+    sqrt = "√",
+    
+    -- Operator aliases
+    ["*"] = "×",
+    ["&&"] = "∧",
+    ["||"] = "∨",
+    ["!"] = "¬",
+    ["is_subset"] = "⊆",
+    ["is_superset"] = "⊇"
 }
 
 M.subscript_map = {
