@@ -78,15 +78,39 @@ local symbol_query_string = [[
 "<=" @op_leq
 ">=" @op_geq
 "->" @op_arrow
+(binary_operator
+    left: (identifier) @base
+    operator: "**"
+    right: (integer) @exp) @superscript
 ]]
 
-local greek_map = {
+local symbol_map = {
     alpha = "α", beta = "β", gamma = "γ", delta = "δ",
     theta = "θ", lambda = "λ", mu = "μ", sigma = "σ",
     phi = "φ", omega = "ω",
+
+    -- Sets
+    ["in"] = "∈", subset = "⊂", union = "∪", intersection = "∩",
+    -- Logic
+    ["and"] = "∧", ["or"] = "∨", ["not"] = "¬",
+    -- Calculus & General
+    infinity = "∞", sum = "∑", integral = "∫", sqrt = "√", nabla = "∇", approx = "≈"
+
     Alpha = "Α", Beta = "Β", Gamma = "Γ", Delta = "Δ",
     Theta = "Θ", Lambda = "Λ", Mu = "Μ", Sigma = "Σ",
-    Phi = "Φ", Omega = "Ω"
+    Phi = "Φ", Omega = "Ω",
+    ["in"] = "∈", subset = "⊂", union = "∪", intersection = "∩",
+    ["and"] = "∧", ["or"] = "∨", ["not"] = "¬",
+    infinity = "∞", sum = "∑", integral = "∫", df_dx = "∂f/∂x",
+    sqrt = "√", nabla = "∇", approx = "≈"
+}
+
+local subscript_map = {
+    ["0"] = "₀", ["1"] = "₁", ["2"] = "₂", ["3"] = "₃", ["4"] = "₄",
+    ["5"] = "₅", ["6"] = "₆", ["7"] = "₇", ["8"] = "₈", ["9"] = "₉",
+    a = "ₐ", e = "ₑ", h = "ₕ", i = "ᵢ", j = "ⱼ", k = "ₖ", l = "ₗ",
+    m = "ₘ", n = "ₙ", o = "ₒ", p = "ₚ", r = "ᵣ", s = "ₛ", t = "ₜ",
+    u = "ᵤ", v = "ᵥ", x = "ₓ"
 }
 
 function M.get_symbols(bufnr, root)
@@ -101,14 +125,39 @@ function M.get_symbols(bufnr, root)
         
         if capture_name == "symbol" then
             local text = vim.treesitter.get_node_text(node, bufnr)
-            if greek_map[text] then
+            if symbol_map[text] then
                 table.insert(symbols, {
                     start_row = range.start_row,
                     start_col = range.start_col,
                     end_row = range.end_row,
                     end_col = range.end_col,
-                    replacement = greek_map[text]
+                    replacement = symbol_map[text]
                 })
+            else
+                local base, sub = text:match("^([a-zA-Z]+)_([a-zA-Z0-9]+)$")
+                if base and sub then
+                    local sub_repl = ""
+                    local valid = true
+                    for i = 1, #sub do
+                        local char = sub:sub(i, i)
+                        if subscript_map[char] then
+                            sub_repl = sub_repl .. subscript_map[char]
+                        else
+                            valid = false
+                            break
+                        end
+                    end
+                    if valid then
+                        local repl = (symbol_map[base] or base) .. sub_repl
+                        table.insert(symbols, {
+                            start_row = range.start_row,
+                            start_col = range.start_col,
+                            end_row = range.end_row,
+                            end_col = range.end_col,
+                            replacement = repl
+                        })
+                    end
+                end
             end
         elseif capture_name == "op_neq" then
             table.insert(symbols, {
@@ -142,6 +191,27 @@ function M.get_symbols(bufnr, root)
                 end_col = range.end_col,
                 replacement = "→"
             })
+        elseif capture_name == "superscript" then
+            local exp_node = nil
+            for child in node:iter_children() do
+                if child:type() == "integer" then exp_node = child end
+            end
+            if exp_node then
+                local exp_text = vim.treesitter.get_node_text(exp_node, bufnr)
+                local sub_map = {
+                    ["0"]="⁰", ["1"]="¹", ["2"]="²", ["3"]="³", ["4"]="⁴",
+                    ["5"]="⁵", ["6"]="⁶", ["7"]="⁷", ["8"]="⁸", ["9"]="⁹"
+                }
+                if sub_map[exp_text] then
+                    table.insert(symbols, {
+                        start_row = range.start_row,
+                        start_col = range.start_col,
+                        end_row = range.end_row,
+                        end_col = range.end_col,
+                        replacement = vim.treesitter.get_node_text(node:child(0), bufnr) .. sub_map[exp_text]
+                    })
+                end
+            end
         end
     end
     
