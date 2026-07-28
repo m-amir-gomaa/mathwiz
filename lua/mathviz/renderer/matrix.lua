@@ -6,14 +6,14 @@ local M = {}
 
 -- symbols
 local brackets = {
-    top_left = "┌",
-    top_right = "┐",
-    mid_left = "│",
-    mid_right = "│",
-    bot_left = "└",
-    bot_right = "┘",
-    single_left = "[",
-    single_right = "]",
+    top_left = "⎡",
+    top_right = "⎤",
+    mid_left = "⎢",
+    mid_right = "⎥",
+    bot_left = "⎣",
+    bot_right = "⎦",
+    single_left = "⎡",
+    single_right = "⎤",
 }
 
 function M.render(bufnr, matrices)
