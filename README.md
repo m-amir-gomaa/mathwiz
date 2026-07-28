@@ -82,22 +82,37 @@ B = np.array(
 ```
 *(Note: Flattened matrices typed explicitly on a single line like `[[1], [2]]` are intentionally skipped by the matrix renderer to prevent horizontal box-bracket layout collisions.)*
 
-## ⚙️ Configuration
+## ⚙️ Configuration & Commands
 
-Default configuration options (passed into `require("mathviz").setup(...)`):
+### Neovim Commands
+MathWiz exposes several useful user commands to control the plugin on the fly without changing your config:
+- `:MathVizEnable` - Enables the renderer for all buffers.
+- `:MathVizDisable` - Completely disables the renderer and instantly clears all math extmarks.
+- `:MathVizToggle` - Toggles the plugin globally on or off.
+- `:MathVizMathMode` - Toggles math-mode for the current buffer.
+
+### Setup Options
+You can configure the behavior of MathWiz by passing options into `require("mathviz").setup(opts)`. Below are the default options:
 
 ```lua
-{
+require("mathviz").setup({
+    enabled = true,
     highlight_groups = {
         symbol = "MathVizSymbol",   -- Highlight group for math symbols
         bracket = "MathVizBracket", -- Highlight group for matrix brackets
     },
     options = {
         cursor = {
-            reveal_on_hover = true, -- Reveals the underlying raw code when your cursor enters the math symbol/matrix!
+            -- Highly recommended! Instantly reveals the underlying raw code 
+            -- (like [[1], [2]]) when your cursor moves inside the math structure.
+            reveal_on_hover = true,
+        },
+        features = {
+            matrices = true, -- Enable/disable matrix and vector rendering
+            symbols = true,  -- Enable/disable greek letters, logic, and subscripts
         }
     }
-}
+})
 ```
 
 ## 🤝 Contributing

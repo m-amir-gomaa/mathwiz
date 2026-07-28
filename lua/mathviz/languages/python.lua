@@ -40,18 +40,22 @@ function M.get_matrices(bufnr, root)
         local capture_name = query.captures[id]
         
         if capture_name == "matrix" then
-            if current_matrix then
+            if current_matrix and current_matrix.id ~= node:id() then
                 table.insert(matrices, current_matrix)
+                current_matrix = nil
             end
-            local range = get_node_range(node)
-            current_matrix = {
-                start_row = range.start_row,
-                start_col = range.start_col,
-                end_row = range.end_row,
-                end_col = range.end_col,
-                rows = {},
-                commas = {}
-            }
+            if not current_matrix then
+                local range = get_node_range(node)
+                current_matrix = {
+                    id = node:id(),
+                    start_row = range.start_row,
+                    start_col = range.start_col,
+                    end_row = range.end_row,
+                    end_col = range.end_col,
+                    rows = {},
+                    commas = {}
+                }
+            end
             -- find commas in outer list
             for child in node:iter_children() do
                 if child:type() == "," then

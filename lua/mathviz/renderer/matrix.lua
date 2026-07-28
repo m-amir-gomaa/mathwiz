@@ -25,11 +25,6 @@ function M.render(bufnr, matrices)
             -- do nothing for this matrix
         else
             local num_rows = #mat.rows
-            
-            -- Skip rendering if it's a flattened multi-row matrix on a single line
-            if num_rows > 1 and mat.start_row == mat.end_row then
-                goto continue_matrix
-            end
 
             -- Render outer brackets (hide them)
             extmarks.set_extmark(bufnr, mat.start_row, mat.start_col, {
@@ -49,7 +44,7 @@ function M.render(bufnr, matrices)
             for i, row in ipairs(mat.rows) do
                 local left_sym, right_sym
                 
-                if num_rows == 1 then
+                if num_rows == 1 or mat.start_row == mat.end_row then
                     left_sym = brackets.single_left
                     right_sym = brackets.single_right
                 elseif i == 1 then
