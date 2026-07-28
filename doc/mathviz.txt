@@ -1,0 +1,74 @@
+*mathviz.txt*   Visual Mathematical Notation Layer
+
+==============================================================================
+CONTENTS                                                      *mathviz-contents*
+
+1. Introduction .......................................... |mathviz-introduction|
+2. Commands .............................................. |mathviz-commands|
+3. Configuration ......................................... |mathviz-configuration|
+
+==============================================================================
+1. Introduction                                           *mathviz-introduction*
+
+MathViz.nvim is a Neovim plugin that adds an optional visual mathematical and 
+programming notation layer on top of ordinary source code.
+
+It renders Python nested lists as matrices, vectors, and replaces common 
+programming identifiers with Greek letters (e.g., `alpha` -> `α`) and operators 
+(`!=` -> `≠`) without changing the underlying source code on disk.
+
+When your cursor enters the transformed region, the original source is revealed 
+for seamless editing.
+
+==============================================================================
+2. Commands                                                   *mathviz-commands*
+
+*:MathVizEnable*
+    Enable MathViz in the current session.
+
+*:MathVizDisable*
+    Disable MathViz and clear all overlays.
+
+*:MathVizToggle*
+    Toggle MathViz state.
+
+*:MathVizMathMode*
+    Toggle Math Mode for the current buffer.
+
+==============================================================================
+3. Configuration                                         *mathviz-configuration*
+
+To configure MathViz, call `require("mathviz").setup(opts)` in your init.lua.
+
+Default configuration:
+>lua
+    require("mathviz").setup({
+        enabled = true,
+        math_mode = {
+            enabled_by_default = true,
+        },
+        features = {
+            matrices = true,
+            vectors = true,
+            symbols = true,
+            operators = true,
+            greek = true,
+        },
+        languages = {
+            python = { enabled = true },
+            c = { enabled = true },
+            cpp = { enabled = true },
+            rust = { enabled = true },
+            go = { enabled = true },
+            javascript = { enabled = true },
+            typescript = { enabled = true },
+            lua = { enabled = true },
+            julia = { enabled = true },
+        },
+        cursor = {
+            reveal_on_hover = true,
+        },
+    })
+<
+
+vim:tw=78:ts=8:ft=help:norl:
